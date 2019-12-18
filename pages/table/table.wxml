@@ -1,0 +1,3 @@
+<!--pages/table/table.wxml-->
+<ruff-table header="{{header}}" list="{{list}}" options="{{options}}" bind:click="tableClick"  												bind:change="tableChange"></ruff-table>
+

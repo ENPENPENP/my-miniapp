@@ -1,0 +1,30 @@
+<!--pages/home/home.wxml-->
+<cu-custom bgColor="bg-gradual-blue">
+    <view slot="content">易表</view>
+</cu-custom>
+<view class="bg-white" style="height:{{bgHeight * 2}}rpx">
+    <view class="grid col-1 text-center padding">
+        <view class="flex align-center margin-xl padding-lg ">
+            <view class="flex-sub text-xsl">
+                <text class="cuIcon-light text-yellow"></text>
+            </view>
+            <view class="flex-sub align-center">
+				<view class="grid col-1"></view>
+			   	<view class="flex align-end text-black text-lg">填表格</view>
+				<view class="flex align-end text-black text-lg">不再麻烦！</view>
+            </view>
+        </view>
+        <view class="block margin-xl padding-lg">
+            <button class="cu-btn bg-green round lg shadow block">
+                <text>创建表格</text>
+                <text class="cuIcon-right lg text-white margin-xs"></text>
+            </button>
+        </view>
+        <view class="block margin-xl padding-lg">
+            <button class="cu-btn bg-blue round lg shadow block">
+                <text>我的表格</text>
+                <text class="cuIcon-list lg text-white margin-xs"></text>
+            </button>
+        </view>
+    </view>
+</view>

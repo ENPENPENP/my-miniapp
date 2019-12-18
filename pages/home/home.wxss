@@ -1,0 +1,8 @@
+/* pages/home/home.wxss */
+.btn-view-container{
+   height: 1200rpx;
+   padding: 150rpx 0rpx;
+}
+.btn-view-content{
+	 margin: 200rpx 150rpx;
+}

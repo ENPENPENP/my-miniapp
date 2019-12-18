@@ -1,0 +1,23 @@
+<scroll-view scroll-x="{{true}}" scroll-left="bottom" class="ruff-table-wrapper">
+    <view class="ruff-table-header">
+        <view class="ruff-table-tr">
+            <view class="ruff-table-th" wx:for="{{header}}" wx:for-index="index" wx:for-item="item" wx:key="index" style="{{setCellWidth? ' width:'+  item.width + 'px;': ''}}">
+                {{item.label}}
+            </view>
+        </view>
+    </view>
+    <view class="ruff-table-body">
+        <view class="ruff-table-tr" wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="index" data-no="{{index}}" bindtap="clickHere">
+            <view class="ruff-table-td" wx:for="{{header}}" wx:for-index="headerIndex" wx:for-item="head" wx:key="headerIndex" style="{{setCellWidth? ' width:'+  cellWidthList[headerIndex] + 'px;': ''}}">
+                {{item[head.prop]}}
+            </view>
+        </view>
+    </view>
+</scroll-view>
+<view class="ofo-wrapper" wx:if="{{ pagination && list.length > 0 }}">
+    <view class="btn previous" bindtap="previous" wx:if="{{current >= 2}}">上一页</view>
+    <input class="page-input" type="number" value="{{current}}" bindblur="pageBlur" />
+    <view>当前第{{ current }}页/总共{{ total }}页</view>
+    <view class="btn next" bindtap="next" wx:if="{{current < total }}">下一页</view>
+    <view class="btn jump" bindtap="jump">跳转</view>
+</view>
