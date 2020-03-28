@@ -1,0 +1,21 @@
+var tableUtils = {
+    isSelect: function (selectColIndex, selectRowIndex, curColIndex, curRowIndex) {
+
+        if (selectColIndex == -1 && selectRowIndex == curRowIndex) {
+            return true;
+        }
+        if (selectRowIndex == -1 && selectColIndex == curColIndex) {
+            return true;
+        }
+        if (selectColIndex != -1 && selectRowIndex != -1 && selectColIndex == curColIndex && selectRowIndex == curRowIndex) {
+            return true;
+        }
+        if (selectColIndex <= -1 && selectRowIndex <= -1) {
+            return false;
+        }
+            return false;
+    }
+}
+module.exports = {
+    isSelect: tableUtils.isSelect
+}

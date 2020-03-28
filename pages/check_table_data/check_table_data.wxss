@@ -1,0 +1,20 @@
+/* pages/test_table/test_table.wxss */
+.grid-container {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+.cell {
+    overflow: hidden;
+    white-space:nowrap;
+}
+.cell-text{
+    position:absolute;
+    overflow:hidden;
+}
+.selected{
+    background-color: #DEF7D3;
+}
+.noSelected{
+    background-color: white;
+}

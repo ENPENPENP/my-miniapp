@@ -1,0 +1,18 @@
+/* pages/sign_in/sign_in.wxss */
+.toptips{
+    display: block;
+    position: inherit;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    top: 0px;
+    left: 30px;
+    right: 30px;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+    z-index: 99999;
+    word-wrap: break-word;
+    word-break: break-all
+}

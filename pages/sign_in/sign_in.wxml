@@ -1,0 +1,97 @@
+<!-- pages/sign_in/sign_in.wxml -->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{false}}" isCustom="{{true}}">
+    <view slot="content">
+        <text style="font-size:{{navigateBarTitleFontSize}}px">登录</text>
+    </view>
+    <view slot="backText" catch:tap="Back"></view>
+</cu-custom>
+<view class="padding bg-gray" style="height:{{bgHeight}}px">
+    <view class="bg-white radius shadow padding-lr-sm padding-bottom-xl" style="height:100%">
+        <view class="padding">
+            <view style="height:35px;width:100%" class="flex justify-center">
+                <block wx:if="{{showTip}}">
+                    <view class="toptips weui-toptips_warn weui-animate-fade-in {{hideTip ? 'weui-animate-fade-in' : ''}}" >
+                        {{warnMsg}}
+                    </view>
+                </block>
+            </view>
+            <view class="flex justify-center"  style="width:100%">
+                <view class="flex flex-wrap solid-bottom padding-lr-sm padding-bottom-sm align-end"  style="width:100%">
+                    <view class="padding-tb-sm basis-xs">
+                        <view class="title flex justify-center">
+                            <text class="text-xl">邮箱</text>
+                        </view>
+                    </view>
+                    <view class="padding-tb-sm padding-left basis-xl">
+                        <view class="cf" hover-class="none" hover-stop-propagation="false" style="font-size:14px;border-bottom: 1px solid {{clickTarget=='email'?'black':'gainsboro'}};width:100%">
+                            <input placeholder="" class="fl" style="font-size:18px;width:90%" catch:input="getEmail" catch:tap="clickEamilInput" catch:blur="inputBlurEvent" value="{{signEmail}}" />
+                            <text class="fr cuIcon-close" style="width:10%;padding-bottom:5px" catch:tap="clearEmail"></text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="flex justify-center"  style="width:100%">
+                <view class="flex flex-wrap padding-sm align-end"  style="width:100%">
+                    <view class="padding-tb-sm basis-xs  flex justify-center">
+                        <view class="title">
+                            <text class="text-xl">密码</text>
+                        </view>
+                    </view>
+                    <view class="padding-tb-sm padding-left basis-xl">
+                        <view class="cf" style="border-bottom: 1px solid {{clickTarget=='password'?'black':'gainsboro'}};width:100%">
+                            <input placeholder="" password="{{!isShowPassword}}" class="fl" style="width:90%" catch:input="getPassword" catch:tap="clickPasswordInput" catch:blur="inputBlurEvent" value="{{signPassword}}" />
+                            <text class="cuIcon-{{isShowPassword?'attentionfill':'attention'}} fr" style="width:10%;padding-bottom:5px" catch:tap="convertPassword"></text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="flex justify-center padding-tb padding-lr-xl">
+                <button class="cu-btn bg-green round padding" style="width:50%" bind:tap="clickEmailSignIn">
+                    <text class="text-sm">使用邮箱登陆</text>
+                </button>
+            </view>
+            <view class="flex justify-center padding-lr-xl">
+                <button class="cu-btn bg-green round padding" style="width:50%" bind:tap="clickWeChatSignIn">
+                    <text class="text-sm">使用微信登录</text>
+                </button>
+            </view>
+            <!-- <view class="flex justify-center margin-top-sm">
+                <view class="" hover-class="none" hover-stop-propagation="false">
+                    <text class="text-xs text-gray">还没有注册？</text>
+                    <text class="text-sm text-blue" bind:tap="toSignUp">点击注册</text>
+                </view>
+            </view> -->
+            <block wx:if="{{getUserInfoDialog}}">
+                <view class="weui-animate-fade-in">
+                    <view class="weui-mask" bindtap="closeDialog"></view>
+                    <view class="weui-half-screen-dialog">
+                        <view class="weui-half-screen-dialog__hd">
+                            <view class="weui-half-screen-dialog__hd__main">
+                                <strong class="weui-half-screen-dialog__title">请求获取用户资料</strong>
+                            </view>
+                        </view>
+                        <view class="weui-half-screen-dialog__bd">
+                            <view class="flex align-center bg-gray" style="padding:5px">
+                                <view style="width:45px;height:45px">
+                                        <open-data type="userAvatarUrl" lang="en" />
+                                </view>
+                                <view class="padding">
+                                    <open-data type="userNickName" lang="en" />
+                                </view>
+                            </view>
+                            <view class="weui-half-screen-dialog__tips">
+                                将获取您的微信昵称、性别等非敏感资料用于注册用途
+                            </view>
+                        </view>
+                        <view class="weui-half-screen-dialog__ft">
+                            <a class="weui-btn weui-btn_default" bindtap="rejectGrant">拒绝</a>
+                            <button class="weui-btn weui-btn_primary" open-type="getUserInfo" bindgetuserinfo="allowGrant">
+                                授权
+                            </button>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>
+</view>

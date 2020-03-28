@@ -1,0 +1,46 @@
+var timeTranslate = {
+    //时间戳转换日期
+    timestampToDate: function (timestamp) {
+        var date = getDate(timestamp);
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
+        return Y + M + D;
+    },
+    //时间戳转换成日期时间
+    timestampToDateTime: function (timestamp) {
+        var date = getDate(timestamp);
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+        return Y + M + D + h + m;
+    },
+    //时间戳转换时间
+    timestampToTime: function (timestamp) {
+        var date = getDate(timestamp);
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+        return h + m;
+    },
+
+    afterMonths: function (timestamp, months) {
+        var date = getDate(timestamp);
+        var Y = date.getFullYear() + '-';
+        var M_temp = ((date.getMonth() + 1 + months) > 12 ? (date.getMonth() + 1 + months - 12) : (date.getMonth() + 1 + months));
+        var M = (M_temp < 10 ? '0' + M_temp : M_temp) + '-';
+        var D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+        return Y + M + D;
+    },
+    StringTimeToTimeStamp: function (stringTime) {
+        return Date.parse(stringTime);
+    }
+}
+module.exports = {
+    timestampToDate: timeTranslate.timestampToDate,
+    timestampToDateTime: timeTranslate.timestampToDateTime,
+    timestampToTime: timeTranslate.timestampToTime,
+    afterMonths: timeTranslate.afterMonths,
+    StringTimeToTimeStamp: timeTranslate.StringTimeToTimeStamp
+}

@@ -1,33 +1,43 @@
 {
-  "pages": [
-    "pages/home/home",
-    "pages/index/index"
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "",
-    "navigationStyle": "custom",
-    "navigationBarTextStyle": "white"
-  },
-  "usingComponents": {
-    "cu-custom": "/colorui/components/cu-custom"
-  },
-  "tabBar": {
-	"list": [
-		{
-	  "pagePath": "pages/home/home",
-	  "text": "首页",
-	  "iconPath": "",
-	  "selectedIconPath": ""
+	"pages": [
+		"pages/home/home",
+		"pages/profile/profile",
+		"pages/sign_up/sign_up",
+		"pages/sign_in/sign_in",
+		"pages/new_table/new_table",
+		"pages/fill_table/fill_table",
+		"pages/my_table/my_table",
+		"pages/check_table/check_table",
+		"pages/check_table_data/check_table_data",
+		"pages/about/about",
+		"pages/edit_profile/edit_profile",
+		"pages/usage/usage"
+	],
+	"window": {
+		"backgroundTextStyle": "light",
+		"navigationBarBackgroundColor": "#fff",
+		"navigationBarTitleText": "",
+		"navigationStyle": "custom",
+		"navigationBarTextStyle": "white"
 	},
-	{
-		"pagePath": "pages/index/index",
-		"text": "首页2",
-		"iconPath": "",
-		"selectedIconPath": ""
-	}
-	]
-  },
-  "sitemapLocation": "sitemap.json"
+	"usingComponents": {
+		"cu-custom": "/colorui/components/cu-custom"
+	},
+	"tabBar": {
+		"list": [
+			{
+				"pagePath": "pages/home/home",
+				"text": "首页",
+				"iconPath": "assets/static/images/homepage.png",
+				"selectedIconPath": "assets/static/images/homepage_fill.png"
+			},
+			{
+				"pagePath": "pages/profile/profile",
+				"text": "个人",
+				"iconPath": "assets/static/images/people.png",
+				"selectedIconPath": "assets/static/images/people_fill.png"
+			}
+		]
+	},
+	"sitemapLocation": "sitemap.json"
 }

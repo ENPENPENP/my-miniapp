@@ -6,11 +6,14 @@
 	"setting": {
 		"urlCheck": true,
 		"es6": true,
+		"enhance": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
 		"autoAudits": false,
+		"scopeDataCheck": false,
+		"uglifyFileName": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -18,12 +21,11 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		},
-		"enhance": true
+		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.4",
-	"appid": "wx6ac675a851b6c6dd",
+	"libVersion": "2.10.3",
+	"appid": "wxbf0fb85a0581f240",
 	"projectname": "my-miniapp",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -54,7 +56,106 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/new_table/new_table",
+					"pathName": "pages/new_table/new_table",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/sign_in/sign_in",
+					"pathName": "pages/sign_in/sign_in",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/table/table",
+					"pathName": "pages/table/table",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/sign_up/sign_up",
+					"pathName": "pages/sign_up/sign_up",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/my_table/my_table",
+					"pathName": "pages/my_table/my_table",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/check_table/check_table",
+					"pathName": "pages/check_table/check_table",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/test_table/test_table",
+					"pathName": "pages/test_table/test_table",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/check_table_data/check_table_data",
+					"pathName": "pages/check_table_data/check_table_data",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "模拟群分享入口",
+					"pathName": "pages/home/home",
+					"query": "targetUrl=%2Fpages%2Fcheck_table%2Fcheck_table%3FeventId%3D10057%26type%3Dshare&type=checkTable",
+					"scene": 1044
+				},
+				{
+					"id": -1,
+					"name": "pages/about/about",
+					"pathName": "pages/about/about",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/usage/usage",
+					"pathName": "pages/usage/usage",
+					"query": "targetUrl=%2Fpages%2Fcheck_table%2Fcheck_table%3FeventId%3D10057%26type%3Dshare&type=checkTable",
+					"scene": null
+				},
+				{
+					"id": 11,
+					"name": "单人回话点击私密分享",
+					"pathName": "pages/home/home",
+					"query": "targetUrl=%2Fpages%2Fcheck_table%2Fcheck_table%3FeventId%3D10060%26type%3Dshare&type=checkTable",
+					"scene": 1007
+				},
+				{
+					"id": 12,
+					"name": "单人回话点击公开分享",
+					"pathName": "pages/home/home",
+					"query": "targetUrl=%2Fpages%2Fcheck_table%2Fcheck_table%3FeventId%3D10065%26type%3Dshare&type=checkTable",
+					"scene": 1007
+				},
+				{
+					"id": 13,
+					"name": "单人分享首页",
+					"pathName": "pages/home/home",
+					"query": "type=home",
+					"scene": 1008
+				}
+			]
 		}
 	}
 }

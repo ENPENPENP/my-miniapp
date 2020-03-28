@@ -1,0 +1,165 @@
+<!-- pages/new_table/new_table.wxml -->
+<wxs module="timeTranslate" src="../../utils/timeTranslate.wxs"></wxs>
+<cu-custom bgColor="bg-gradual-blue" targetPage="{{targetPage}}" isCustom="{{true}}" lastPage="{{lastPage}}">
+  <view slot="content">
+    <text style="font-size:{{navigateBarTitleFontSize}}px"></text>
+    新表格
+  </view>
+  <view slot="backText" catch:tap="Back">
+    <text class="text-black" catch:tap="toHome"></text>
+  </view>
+</cu-custom>
+<scroll-view scroll-y="{{true}}" style="height:{{bgHeight}}px">
+  <view class="cu-bar bg-white solid-bottom">
+    <view class="action">
+      <text class="cuIcon-title text-red"></text>
+      <text class="text-black text-lg">表格名称</text>
+    </view>
+    <view class="action">
+      <input placeholder="" bindinput="getFileName" confirm-type="done" />
+      <text class="text-black text-lg">.xls</text>
+    </view>
+  </view>
+  <!-- 表头设置 -->
+  <view class="cu-bar bg-white solid-bottom">
+    <view class="action">
+      <text class="cuIcon-title text-red"></text>
+      <text class="text-black text-lg">数据列</text>
+    </view>
+    <view class="action">
+      <button class="cu-btn icon sm bg-red round shadow" bindtap="showNewColumnModal" data-target="newColumnModal">
+        <text class="cuIcon-add text-lg"></text>
+      </button>
+    </view>
+  </view>
+  <block wx:if="{{modalName=='newColumnModal'?'true':'false'}}">
+    <view class="cu-modal {{modalName=='newColumnModal'?'show':''}}">
+      <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+          <view class="content">添加新列</view>
+          <view class="action" bindtap="hideModal">
+            <text class="cuIcon-close text-red"></text>
+          </view>
+        </view>
+        <view class="padding">
+          <view class="cu-form-group">
+            <view class="title">列名</view>
+            <input type="text" bindinput="getNewColumnName" value="{{newColumnName}}"></input>
+          </view>
+          <view class="cu-form-group">
+            <view class="title">备注</view>
+            <input bindinput="getNewColumnComment" focus="{{false}}" value="{{newColumnComment}}"></input>
+          </view>
+        </view>
+        <view class="cu-bar bg-white justify-end">
+          <view class="action">
+            <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+            <button class="cu-btn bg-green margin-left" disabled="{{!hasColumnName}}" bindtap="comfirmAddColumn">
+              确定
+            </button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <!-- 表头列表开始 -->
+  <block wx:if="{{newColumns.length>0}}">
+    <view class="cu-list menu solid-top solid-bottom">
+      <view class="cu-item" wx:for="{{newColumns}}" wx:key="unique">
+        <view class="content">
+          <text class="text-black text-xlg padding-left padding-right">{{item.index + 1}}</text>
+          <text class="text-black text-lg padding-left">{{item.data}}</text>
+        </view>
+        <view class="action">
+          <button class="cu-btn icon bg-red round shadow sm" bindtap="removeColumn" id="{{item.unique}}">
+            <text class="cuIcon-move"></text>
+          </button>
+        </view>
+      </view>
+    </view>
+  </block>
+  <!-- 表头列表结束 -->
+  <!-- 表头设置结束 -->
+  <!-- 表格属性开始 -->
+  <view class="cu-bar bg-white solid-bottom margin-top-sm">
+    <view class="action">
+      <text class="cuIcon-title text-red"></text>
+      <text class="text-black text-lg">表格属性</text>
+    </view>
+  </view>
+  <view class="cu-list menu">
+    <view class="cu-item">
+      <view class="content">
+        <text class="cuIcon-right lg text-gray"></text>
+        <text class="text-black text-df">私密表格</text>
+        <text class="text-grey text-sm"></text>
+      </view>
+      <view class="action">
+        <switch class="sm shadow" checked="{{isPrivate}}" bindtap="isPrivateSwitchChange" />
+      </view>
+    </view>
+    <view class="cu-item">
+      <view class="content">
+        <text class="cuIcon-{{isLimit?'unfold':'right'}} lg text-gray"></text>
+        <text class="text-black text-df">截止时间</text>
+        <text class="text-grey text-sm">(最长三个月)</text>
+      </view>
+      <view class="action">
+        <switch class="sm shadow" checked="{{isLimit}}" bindchange="isLimitSwitchChange" />
+      </view>
+    </view>
+    <!-- 截止日期开始 -->
+    <block wx:if="{{isLimit}}">
+      <view class="cu-item">
+        <view class="content margin-left-sm">
+          <text class="cuIcon-right lg text-gray"></text>
+          <text class="text-black text-df">截止日期</text>
+        </view>
+        <view class="action">
+          <picker mode="date" value="{{timeTranslate.timestampToDate(nowDate)}}" start="{{timeTranslate.timestampToDate(nowDate)}}" end="{{timeTranslate.afterMonths(nowDate,3)}}" bindchange="DateChange">
+            <view class="picker">{{endDate}}</view>
+          </picker>
+        </view>
+      </view>
+    </block>
+    <!-- 截止日期结束 -->
+    <!-- 截止时间开始 -->
+    <block wx:if="{{isLimit}}">
+      <view class="cu-item">
+        <view class="content margin-left-sm">
+          <text class="cuIcon-right lg text-gray"></text>
+          <text class="text-black text-df">截止时间</text>
+        </view>
+        <view class="action">
+          <picker mode="time" value="{{timeTranslate.timestampToTime(nowTime)}}" start="{{'00:00'}}" end="23:59" bindchange="TimeChange">
+            <view>{{endTime}}</view>
+          </picker>
+        </view>
+      </view>
+    </block>
+    <!-- 截止时间结束 -->
+  </view>
+  <!-- 表格属性结束 -->
+  <view class="padding flex flex-direction">
+    <button class="cu-btn bg-green margin-tb-sm lg" disabled="{{!canCreateTable}}" bindtap="CreateTable">
+      确定
+    </button>
+  </view>
+</scroll-view>
+<view class="cu-modal {{modalName=='processingModal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="content padding">
+      <view class="padding-top">
+        <view class="cu-progress round">
+          <view class="bg-{{processError?'red':'green'}}" style="width:{{processingPercent}}%;"></view>
+        </view>
+        <text class="text-df text-black">{{processResult}}</text>
+      </view>
+    </view>
+    <view class="cu-bar bg-white justify-center">
+      <view class="action" catch:tap="closeProcessModal">
+        <text class="cuIcon-close text-{{processFinished?'green':'gray'}} text-xl"></text>
+      </view>
+    </view>
+  </view>
+</view>

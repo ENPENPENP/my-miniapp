@@ -1,75 +1,92 @@
 // pages/home/home.js
+var appInst = getApp();
 Page({
-
-	/**
-	 * 页面的初始数据
-	 */
-	data: {
-		bgHeight:null
-	},
-
-	/**
-	 * 生命周期函数--监听页面加载
-	 */
-	onLoad: function (options) {
-		//获取屏幕尺寸，设置背景高度
-		wx.getSystemInfo({
-			success: (result)=>{
-				this.setData({
-					bgHeight:result.windowHeight
-				})
-			},
-			fail: ()=>{},
-			complete: ()=>{}
-		});
-	},
-
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady: function () {
-
-	},
-
-	/**
-	 * 生命周期函数--监听页面显示
-	 */
-	onShow: function () {
-
-	},
-
-	/**
-	 * 生命周期函数--监听页面隐藏
-	 */
-	onHide: function () {
-
-	},
-
-	/**
-	 * 生命周期函数--监听页面卸载
-	 */
-	onUnload: function () {
-
-	},
-
-	/**
-	 * 页面相关事件处理函数--监听用户下拉动作
-	 */
-	onPullDownRefresh: function () {
-
-	},
-
-	/**
-	 * 页面上拉触底事件的处理函数
-	 */
-	onReachBottom: function () {
-
-	},
-
-	/**
-	 * 用户点击右上角分享
-	 */
-	onShareAppMessage: function () {
-
-	}
+    data: {
+        bgHeight: appInst.globalData.bgHeight,
+        navigateBarTitleFontSize: appInst.globalData.navigateBarTitleFontSize,
+        tarBarHeight: appInst.globalData.tarBarHeight,
+        CustomBar: appInst.globalData.CustomBar,
+        signIned: appInst.globalData.signIned,
+        modalName: "",
+        triggered: false,
+        dataRefreshed: false
+    },
+    onLoad: function (options) {
+        // wx.showShareMenu({
+        //     withShareTicket: true,
+        // })
+        this.setData({
+            signIned: appInst.globalData.signIned,
+            modalName: ""
+        });
+    },
+    onReady: function () {},
+    onShow: function (options) {},
+    onHide: function () {},
+    onUnload: function () {},
+    onPullDownRefresh: function () {},
+    onReachBottom: function () {},
+    onShareAppMessage: function () {
+        return {
+            title: '易xcel',
+            path: '/pages/home/home?type=home',
+            success: function (res) {
+                console.log('share success')
+            },
+            fail: function (res) {
+                console.log(res)
+            }
+        }
+    },
+    /**
+     * 如果已经登陆，跳转到新建表格页面，否则跳转到登陆页面
+     * @param {事件参数} e 
+     */
+    toNewTable: function (e) {
+        var curPages = getCurrentPages();
+        var curPageRoute = curPages[curPages.length - 1].route;
+        wx.navigateTo({
+            url: appInst.globalData.signIned ? '../new_table/new_table' : ('../sign_in/sign_in?targetPage=' + '../new_table/new_table' + '?lastPage=' + curPageRoute),
+        })
+    },
+    toMyTable: function (e) {
+        var curPages = getCurrentPages();
+        var curPageRoute = curPages[curPages.length - 1].route;
+        wx.navigateTo({
+            url: appInst.globalData.signIned ? '../my_table/my_table' : ('../sign_in/sign_in?targetPage=' + '../my_table/my_table' + '?lastPage=' + curPageRoute),
+        })
+    },
+    showGroupModal: function (e) {
+        this.setData({
+            modalName: "groupModal"
+        })
+    },
+    hideModal: function (e) {
+        this.setData({
+            modalName: ""
+        })
+    },
+    click: function (e) {
+        console.log(e)
+    },
+    onPulling: function (e) {
+        // console.log('pulling' + e);
+    },
+    onRefresh: function () {
+        console.log('onFresh')
+        if (this._freshing) return;
+        this._freshing = true;
+        setTimeout(() => {
+            this.setData({
+                triggered: false,
+            })
+            this._freshing = false;
+        }, 2000);
+    },
+    onRestore: function (e) {},
+    onAbort: function (e) {
+        this.setData({
+            triggered: false
+        })
+    },
 })

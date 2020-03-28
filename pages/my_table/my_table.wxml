@@ -1,0 +1,79 @@
+<!-- pages/my_table/my_table.wxml -->
+<wxs module="stringFormat" src="../../utils/stringFormat.wxs"></wxs>
+<cu-custom bgColor="bg-gradual-blue" isBack="{{false}}" isCustom="{{true}}">
+    <view slot="content">
+        <text style="font-size:{{navigateBarTitleFontSize}}px">与我有关</text>
+    </view>
+</cu-custom>
+<view class="bg-white" style="height:{{bgHeight}}px">
+    <view class="cu-bar bg-white solid-bottom margin-bottm" style="height:60px">
+        <view class="action">我创建的</view>
+        <view class="action">
+            <button class="cu-btn bg-green shadow" bindtap="toNewTable">创建</button>
+        </view>
+    </view>
+    <scroll-view scroll-y="{{true}}" style="height:calc(50vh-60px - {{CustomBar}}px);" refresher-enabled="{{true}}" refresher-threshold="{{30}}" refresher-default-style="black" refresher-background="white" refresher-triggered="{{triggered}}" bindrefresherpulling="onPulling" bindrefresherrefresh="onRefreshing" bindrefresherrestore="onRestore" bindrefresherabort="onAbort">
+        <block wx:if="{{myEventList.length >= 0}}">
+            <view class="cu-list menu">
+                <view class="cu-item " wx:for="{{myEventList}}" wx:for-index="idx" wx:for-item="event">
+                    <view class="content">
+                        <text class="margin-lr text-black text-sm">{{idx + 1}}</text>
+                        <text class="text-black">{{stringFormat.foldString(event.fileInfo.fileName)}}</text>
+                    </view>
+                    <view class="action">
+                        <button class="cu-btn round bg-white" id="{{event.eventId}}" bind:tap="clickDelete">
+                            <text class="cuIcon-delete"></text>
+                        </button>
+                        <button class="cu-btn round bg-white" id="{{event.eventId}}" bind:tap="toCheckPage">
+                            <text class="cuIcon-right"></text>
+                        </button>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{eventList.length == 0}}">
+            <view style="width: 100%;height: {{bgHeight - 60 + 1}}px;overflow: auto;">
+                <view style="text-align: center;display: flex;justify-content: center;align-items: center;margin: 30rpx 0">
+                    <text style="color: #999;margin-left: 5px">没有更多数据了</text>
+                </view>
+            </view>
+        </block>
+    </scroll-view>
+            <view class="cu-bar bg-white solid-bottom margin-bottm">
+            <view class="action">我参与过的</view>
+        </view>
+    <scroll-view scroll-y="{{true}}" style="height:50vh;" refresher-enabled="{{true}}" refresher-threshold="{{30}}" refresher-default-style="black" refresher-background="white" refresher-triggered="{{triggered}}" bindrefresherpulling="onPulling" bindrefresherrefresh="onRefreshing" bindrefresherrestore="onRestore" bindrefresherabort="onAbort">
+        <block wx:if="{{linkedEventList.length >= 0}}">
+            <view class="cu-list menu">
+                <view class="cu-item " wx:for="{{linkedEventList}}" wx:for-index="idx" wx:for-item="linkedEvent">
+                    <view class="content">
+                        <text class="margin-lr text-black text-sm">{{idx + 1}}</text>
+                        <text class="text-black">{{stringFormat.foldString(linkedEvent.fileInfo.fileName)}}</text>
+                    </view>
+                    <view class="action">
+                        <button class="cu-btn round bg-white" id="{{linkedEvent.eventId}}" bind:tap="toCheckPage">
+                            <text class="cuIcon-right"></text>
+                        </button>
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <block wx:if="{{linkedEvent.length == 0}}">
+            <view style="width: 100%;height: {{bgHeight - 60 + 1}}px;overflow: auto;">
+                <view style="text-align: center;display: flex;justify-content: center;align-items: center;margin: 30rpx 0">
+                    <text style="color: #999;margin-left: 5px">没有更多数据了</text>
+                </view>
+            </view>
+        </block>
+    </scroll-view>
+</view>
+<view class="cu-modal bottom-modal {{modalName=='deleteModal'?'show':''}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white">
+            <view class="action text-green" bind:tap="comfirmDelete">确定</view>
+            <view class="action text-blue" bindtap="hideModal">取消</view>
+        </view>
+        <view class="padding-xl">是否要删除表格：{{deleteTargetFileName}} ？</view>
+    </view>
+</view>

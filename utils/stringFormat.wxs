@@ -1,0 +1,18 @@
+var stringFormat = {
+    foldString: function (targetString, afterIndex, replaceChar) {
+        var _replaceChar = (replaceChar != null && replaceChar.length != 0) ? replaceChar : '...';
+        var _afterIndex = (afterIndex != null && afterIndex >= 0) ? afterIndex : 10;
+        if (targetString != null && targetString.length != 0) {
+            if (_afterIndex < targetString.length) {
+                targetString = targetString.substring(0, _afterIndex) + _replaceChar;
+                return targetString;
+            } else if (targetString.length <= _afterIndex) {
+                return targetString;
+            }
+
+        }
+    }
+}
+module.exports = {
+    foldString: stringFormat.foldString
+}

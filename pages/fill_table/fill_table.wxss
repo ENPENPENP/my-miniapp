@@ -1,0 +1,6 @@
+/* pages/fill_table/fill_table.wxss */
+.scroll-content {
+    margin: 0;
+    padding: 1px;
+    
+}

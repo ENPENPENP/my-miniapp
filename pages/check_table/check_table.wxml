@@ -1,0 +1,122 @@
+<!-- pages/check_table/check_table.wxml -->
+<wxs module="stringFormat" src="../../utils/stringFormat.wxs"></wxs>
+<wxs module="timeTranslate" src="../../utils/timeTranslate.wxs"></wxs>
+<view style="height:100vh;margin:0;padding:0;" class="bg-gray">
+    <cu-custom bgColor="bg-gradual-blue" isCustom="{{true}}">
+        <view slot="content">
+            <text style="font-size:{{navigateBarTitleFontSize}}px">查看表格</text>
+        </view>
+    </cu-custom>
+    <view style="height:calc(100vh - {{navigateBarTitleFontSize}}px)">
+        <view class="bg-white flex justify-center padding-tb-sm solid-top">
+            <!-- <view class="flex-sub flex justify-center padding-left-sm">
+                <button class="cu-btn bg-green" style="width:100%">
+                    <text class="cuIcon-upload"></text>
+                    发布
+                </button>
+            </view> -->
+            <view class="flex-sub flex justify-center  padding-left-sm">
+                <button class="cu-btn bg-green" style="width:100%" open-type="share">
+                    <text class="cuIcon-share"></text>
+                    分享
+                </button>
+            </view>
+            <view class="flex-sub flex justify-center padding-left-sm">
+                <button class="cu-btn bg-blue" style="width:100%" bind:tap="toFillTable">
+                    <text class="cuIcon-edit"></text>
+                    填写
+                </button>
+            </view>
+            <view class="flex-sub flex justify-center  padding-lr-sm">
+                <button class="cu-btn lines-red" style="width:100%" bind:tap="clickDelete">
+                    <text class="cuIcon-delete"></text>
+                    删除
+                </button>
+            </view>
+        </view>
+        <view class="bg-white flex solid-top">
+            <view class=" bg-white flex justify-start padding solid-top align-end">
+                <text class="text-black text-sm">表格名称：</text>
+                <text class="text-black">{{event.fileInfo.fileName?event.fileInfo.fileName:""}}</text>
+            </view>
+        </view>
+        <view class="bg-white flex solid-top">
+            <view class="flex-sub flex justify-start padding solid-right align-end">
+                <text class="text-black text-sm">已有行数：</text>
+                <text class="text-black">{{event.fileInfo.rowCount?event.fileInfo.rowCount-1:""}}</text>
+            </view>
+            <view class="flex-sub flex justify-start padding align-end">
+                <text class="text-black text-sm">列数：</text>
+                <text class="text-black">{{event.fileInfo.colCount?event.fileInfo.colCount:""}}</text>
+            </view>
+        </view>
+        <view class="bg-white flex solid-top">
+            <view class="flex-sub flex justify-start padding solid-right">
+                <text class="text-black text-sm">创建时间：</text>
+                <text class="text-black text-sm">{{event.fileInfo.createTime?timeTranslate.timestampToDateTime(event.fileInfo.createTime):""}}</text>
+            </view>
+            <view class="flex-sub flex justify-start padding align-end">
+                <text class="text-black text-sm">是否截止：</text>
+                <text class="text-black">{{event.fileInfo.isStoped?'是':'否'}}</text>
+            </view>
+        </view>
+        <view class="bg-white flex solid-top">
+            <view class="flex-sub flex justify-start padding align-end solid-right">
+                <text class="text-black text-sm">修改时间：</text>
+                <text class="text-black text-sm">{{event.fileInfo.updateTime?timeTranslate.timestampToDateTime(event.fileInfo.updateTime):""}} </text>
+            </view>
+            <view class="flex-sub flex justify-start padding align-end">
+                <text class="text-black text-sm">创建人：</text>
+                <text class="text-black">{{userName?userName:""}}</text>
+            </view>
+        </view>
+        <view class="bg-white flex solid-top">
+            <view class="flex-sub flex justify-start padding align-end solid-right">
+                <text class="text-black text-sm">是否已经生成文件：</text>
+                <text class="text-black text-sm">{{event.fileInfo.isGenerated?"是":"否"}}</text>
+            </view>
+            <view class="flex-sub flex justify-start padding align-end">
+                <button class="cu-btn bg-blue" disabled="{{!event.fileInfo.isGenerated}}" bind:tap="downloadFile" disabled="{{btnDisabled}}">
+                    <text class="cuIcon-download">复制下载链接</text>
+                </button>
+                 <!-- <button class="cu-btn bg-blue margin-left-sm" disabled="{{!downloaded}}" bind:tap="openFile">
+                    <text class="cuIcon-download">打开</text>
+                </button> -->
+            </view>
+        </view>
+        <view class="flex justify-center">
+            <view class=" flex justify-center padding-sm">
+                <button class="cu-btn bg-green block" style="width:40vw" bind:tap="generateFile" disabled="{{btnDisabled}}">
+                    <text class="text text-white text-lg">生成文件</text>
+                </button>
+            </view>
+            <view class=" flex justify-center padding-sm">
+                <button class="cu-btn bg-green block" style="width:40vw" bind:tap="toCheckTableData" disabled="{{btnDisabled}}">
+                    <text class="text text-white text-lg">预览文件</text>
+                </button>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="cu-modal bottom-modal {{modalName=='deleteModal'?'show':''}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white">
+            <view class="action text-green" bind:tap="comfirmDelete">确定</view>
+            <view class="action text-blue" bindtap="hideModal">取消</view>
+        </view>
+        <view class="padding-xl">是否要删除表格：{{event.fileInfo.fileName}} ？</view>
+    </view>
+</view>
+<view class="cu-modal {{modalName=='warnModal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">查看失败</view>
+      <view class="action" bindtap="closePage">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      抱歉，您没有权限查看当前表格
+    </view>
+  </view>
+</view>

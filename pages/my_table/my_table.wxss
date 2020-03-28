@@ -1,0 +1,9 @@
+/* pages/my_table/my_table.wxss */
+.intro {
+    margin: 30px;
+    text-align: center;
+  }
+  
+  .trans {
+    transition: .2s;
+  }

@@ -1,0 +1,62 @@
+<cu-custom bgColor="bg-gradual-blue">
+  <view slot="content">个人</view>
+</cu-custom>
+<view class="margin-xl padding-xl bg-white radius shadow shadow-lg">
+  <view class="flex justify-center">
+    <block wx:if="{{!signIned}}">
+      <button class='cu-btn round bg-green shadow' bindtap="toSignIn">登陆 / 注册</button>
+    </block>
+    <block wx:if="{{signIned}}">
+      <view class="flex align-center" style="width:100%">
+        <view class="cu-avatar round lg padding-right" style="background-image:url({{avatarUrl}});"></view>
+        <view class="text-xl padding-lr-lg">
+          <text class="text-ablack">{{nickName}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+<view class="text-center margin-top"></view>
+<view class="cu-list menu card-menu">
+  <!-- <view class="cu-item arrow">
+    <view class="content">
+      <text class="cuIcon-edit"></text>
+      <text class="text-black">修改个人信息</text>
+    </view>
+  </view> -->
+  <!-- <view class="cu-item arrow">
+    <view class="content">
+      <text class="cuIcon-message"></text>
+      <text class="text-black">消息</text>
+    </view>
+    <view class="action">
+      <view class="cu-tag sm round bg-red"></view>
+    </view>
+  </view> -->
+  <view class="cu-item arrow">
+    <view class="content" bind:tap="toUsage">
+      <text class="cuIcon-question"></text>
+      <text class="text-black">使用说明</text>
+    </view>
+  </view>
+  <view class="cu-item arrow">
+    <view class="content" bind:tap="toAbout">
+      <text class="cuIcon-question"></text>
+      <text class="text-black">关于</text>
+    </view>
+  </view>
+</view>
+<view class="cu-modal bottom-modal {{modalName=='signOutModal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white">
+      <view class="action text-green" bind:tap="confirmSignOut">确定</view>
+      <view class="action text-blue" bindtap="hideModal">取消</view>
+    </view>
+    <view class="padding-xl">是否确定退出登录？</view>
+  </view>
+</view>
+<block wx:if="{{signIned}}">
+  <view class="padding flex flex-direction">
+    <button class="cu-btn bg-red margin-tb-sm lg" bind:tap="clickSignOut">退出登录</button>
+  </view>
+</block>

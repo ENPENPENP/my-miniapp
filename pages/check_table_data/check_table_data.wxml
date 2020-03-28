@@ -1,0 +1,65 @@
+<!-- pages/test_table/test_table.wxml -->
+<wxs module="tableUtils" src="../../utils/tableUtils.wxs"></wxs>
+<view style="height:100vh" class="bg-gray">
+    <cu-custom bgColor="bg-gradual-blue" isBack="{{false}}" isCustom="{{true}}">
+        <view slot="content">
+            <text style="font-size:{{navigateBarTitleFontSize}}px">查看</text>
+        </view>
+        <view slot="backText" catch:tap="Back"></view>
+    </cu-custom>
+    <view class="grid-container">
+        <view class="flex justify-center bg-white text padding-lr-sm" style="height:7vh">
+            <view class="flex align-center padding-left-sm" style="width:70vw">
+                <input class="" disabled="{{!editAble}}" style="font-size:18px;" value="{{cellContent}}" bindinput="modifyValue" />
+            </view>
+            <view class="padding-tb-sm" style="width:30vw;height:100%">
+                <button class="cu-btn line-red margin-right-sm" style="height:100%">
+                    <text class="cuIcon-delete"></text>
+                </button>
+                <button class="cu-btn bg-green" style="height:100%">
+                    <text class="cuIcon-check"></text>
+                </button>
+            </view>
+        </view>
+        <view style="width:100%;height:calc({{tableHeightPercent - 7}}vh - {{CustomBar}}px);">
+            <view class="flex">
+                <view style="width:10vw;height:{{cellHeight}}px;margin:0;padding:0;" class="noSelected cell solid" data-row-num="{{-2}}" data-col-num="{{-2}}" bind:tap="cellTap"></view>
+                <scroll-view scroll-x class="solid" style="width:90vw;height:{{cellHeight}}px" scroll-left="{{colScroll_left}}" scroll-with-animation="{{true}}" bindscroll="colScroll">
+                    <view class="flex " style="height:100%;">
+                        <view wx:for="{{fileDataList[0].rowData}}">
+                            <view class="flex justify-center align-center {{tableUtils.isSelect(selectColIndex,selectRowIndex,index,-1)?'selected':'noSelected'}} solid cell" style="height:100%;width:{{cellWidth}}px;" data-col-num="{{index}}" data-row-num="{{-1}}" bind:tap="cellTap">
+                                <text class="text-black text-lg cell-text">{{fileDataList[0].rowData[index].data}}</text>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </view>
+            <view class="flex">
+                <scroll-view scroll-y class="solid" style="width:10vw;height:calc({{tableHeightPercent - 7}}vh - {{CustomBar + cellHeight}}px)" scroll-top="{{rowScroll_top}}" scroll-with-animation="{{true}}" bindscroll="rowScroll">
+                    <view class="grid col-1 " style="width:100%;">
+                        <view wx:for="{{fileDataList}}">
+                            <block wx:if="{{index != 0}}">
+                                <view class="flex justify-center block align-center {{tableUtils.isSelect(selectColIndex,selectRowIndex,-1,index)?'selected':'noSelected'}} solid cell" style="width:10vw;height:{{cellHeight}}px;" data-row-num="{{index}}" data-col-num="{{-1}}" bind:tap="cellTap">
+                                    <text class="text-black cell-text">{{index}}</text>
+                                </view>
+                            </block>
+                        </view>
+                    </view>
+                </scroll-view>
+                <scroll-view scroll-x scroll-y class="solid" style="width:90vw;height:calc({{tableHeightPercent - 7}}vh - {{CustomBar + cellHeight}}px)" scroll-with-animation="{{true}}" bindscroll="scroll" scroll-left="{{dataScroll_left}}" scroll-top="{{dataScroll_top}}">
+                    <view class="flex ">
+                        <view wx:for="{{event.fileInfo.colCount}}" wx:for-index="col_idx">
+                            <view wx:for="{{event.fileInfo.rowCount}}" wx:for-index="row_idx">
+                                <block wx:if="{{row_idx != 0}}">
+                                    <view class="flex justify-center block align-center {{tableUtils.isSelect(selectColIndex,selectRowIndex,col_idx,row_idx)?'selected':'noSelected'}} solid cell" style="height:{{cellHeight}}px;width:{{cellWidth}}px;position:relative;" data-col-num="{{col_idx}}" data-row-num="{{row_idx}}" catch:tap="cellTap">
+                                        <text class="text-black cell-text">{{fileDataList[row_idx].rowData[col_idx].data}}</text>
+                                    </view>
+                                </block>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </view>
+        </view>
+    </view>
+</view>

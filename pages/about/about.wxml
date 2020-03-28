@@ -1,0 +1,27 @@
+<!-- pages/about/about.wxml -->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+    <view slot="content">关于</view>
+</cu-custom>
+<view class="margin-xl padding-xl bg-white radius shadow shadow-lg">
+    <view class="flex justify-center">
+        <text class="text-black" decode="{{true}}">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你们好，这是我的毕业设计小程序。采用原生的小程序框架，模仿了主流文档处理的应用，实现了在线生成表格和填写的功能，并可以通过分享实现多人填写。
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;小程序的大部分样式引用了微信官方的 'We-UI' 以及github上的开源项目 'Color-UI组件库'。其中预览表格页面由个人设计，已经具有类似表格文档的部分特性。有时间将会设计成小程序组件分享到github上。
+        <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目前小程序原生框架依然存在不少问题，官方api的改动也让不少让开发者苦恼，但都是为了用户体验而改，值得体谅，希望这套框架能够就完善。 -->
+        </text>
+    </view>
+</view>
+<view class="cu-list menu card-menu">
+    <view class="cu-item arrow">
+        <view class="content flex" bind:tap="copyColorUi">
+            <text class="cuIcon-github"></text>
+            <text class="text-black">Color-UI</text>
+        </view>
+    </view>
+    <view class="cu-item arrow">
+        <view class="content flex" bind:tap="copyWeUi">
+            <text class="cuIcon-github"></text>
+            <text class="text-black">We-UI</text>
+        </view>
+    </view>
+</view>

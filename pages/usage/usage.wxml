@@ -1,0 +1,44 @@
+<!-- pages/usage/usage.wxml -->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+    <view slot="content">使用说明</view>
+</cu-custom>
+<view class="margin-xl bg-white radius shadow shadow-lg">
+    <view class="cu-card dynamic">
+        <view class="cu-item shadow">
+            <view class="text-content">
+                <text class="cuIcon-title text-red"></text>
+                登陆和注册
+            </view>
+            <view class="text-content">
+                在个人页面，点击登录/注册，授权登陆后获取用户信息，用于登陆注册用途。创建表格和我创建的功能只有在登陆之后才能进行使用。
+            </view>
+            <view class="text-content solid-top">
+                <text class="cuIcon-title text-red"></text>
+                创建表格
+            </view>
+            <view class="text-content">
+                点击首页的创建表格后，进入创建表格页面。可以设置表格名称、列名、截止时间以及表格的隐私属性。只有输入表格名称和至少一列列名之后才能创建表格。
+            </view>
+            <view class="text-content solid-top">
+                <text class="cuIcon-title text-red"></text>
+                我参与的
+            </view>
+            <view class="text-content">点击首页的我参与的后，进入查看我参与的表格事件的页面。在这里可以查看你创建的表格，和你曾经参与过填写的表格。</view>
+            <view class="text-content">
+                点击首页的创建表格后，进入创建表格页面。可以设置表格名称、列名、截止时间以及表格的隐私属性。只有输入表格名称和至少一列列名之后才能创建表格。
+            </view>
+            <view class="text-content solid-top">
+                <text class="cuIcon-title text-red"></text>
+                查看表格
+            </view>
+            <view class="text-content">
+                当用户有权限查看当前表格时，才可以进入表格查看页面。可以通过他人分享或者在我参与的页面进入。在此页面可以查看表格的基本属性，如果当前表格是私密的，只有创建的用户才能预览和下载以及生成表格。点击生成表格之后，可以复制下载链接，将链接复制到浏览器访问进行表格的下载。
+            </view>
+            <view class="text-content solid-top">
+                <text class="cuIcon-title text-red"></text>
+                预览表格
+            </view>
+            <view class="text-content">只有在当前用户是当前表格的创建人时才可以进行表格预览。此页面可以预览表格的数据。</view>
+        </view>
+    </view>
+</view>

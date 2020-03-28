@@ -1,0 +1,101 @@
+<!-- pages/sign_up/sign_up.wxml -->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+    <view slot="content">
+        <text style="font-size:{{navigateBarTitleFontSize}}px">注册</text>
+    </view>
+    <view slot="backText"></view>
+</cu-custom>
+<view class="padding bg-gray" style="height:{{bgHeight}}px">
+    <view class="bg-white radius shadow padding-lr-sm " style="height:100%">
+        <view class="padding">
+            <view style="height:35px;width:100%" class="flex justify-center">
+                <block wx:if="{{showTip}}">
+                    <view class="toptips weui-toptips_warn weui-animate-fade-in {{hideTip ? 'weui-animate-fade-in' : ''}}" >
+                        {{warnMsg}}
+                    </view>
+                </block>
+            </view>
+            <view class="flex justify-center" style="width:100%">
+                <view class="flex flex-wrap solid-bottom padding-lr-sm padding-bottom-sm align-end" style="width:100%">
+                    <view class="padding-tb-sm basis-xs">
+                        <view class="title flex justify-center" >
+                            <text class="text-xl">用户名</text>
+                        </view>
+                    </view>
+                    <view class="padding-tb-sm padding-lr-sm basis-xl">
+                        <view class="cf" hover-class="none" hover-stop-propagation="false" style="font-size:14px;border-bottom: 1px solid {{clickTarget=='username'?'black':'gainsboro'}};width:100%">
+                            <input placeholder="" class="fl" style="font-size:18px;width:85%" catch:input="getUserName" catch:tap="clickUserNameInput" catch:blur="inputBlurEvent" value="{{signUserName}}" />
+                            <text class="fr text-sm text-green" style="width:15%;" catch:tap="clickGetNickName">获取</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="flex justify-center" style="width:100%">
+                <view class="flex flex-wrap padding-sm align-end" style="width:100%">
+                    <view class="padding-tb-sm basis-xs">
+                        <view class="title flex justify-center">
+                            <text class="text-xl">邮箱</text>
+                        </view>
+                    </view>
+                    <view class="padding-tb-sm padding-lr-sm basis-xl" >
+                        <view class="cf" style="border-bottom: 1px solid {{clickTarget=='email'?'black':'gainsboro'}};width:100%">
+                            <input placeholder="" class="fl" style="font-size:18px;width:90%" catch:input="getEmail" catch:tap="clickEamilInput" catch:blur="inputBlurEvent" value="{{signEmail}}" />
+                            <text class="fr cuIcon-close" style="width:10%;padding-bottom:5px" catch:tap="clearEmail"></text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="flex justify-center"  style="width:100%">
+                <view class="flex flex-wrap padding-sm align-end"  style="width:100%">
+                    <view class="padding-tb-sm basis-xs">
+                        <view class="title flex justify-center">
+                            <text class="text-xl">密码</text>
+                        </view>
+                    </view>
+                    <view class="padding-tb-sm padding-lr-sm basis-xl">
+                        <view class="cf" style="border-bottom: 1px solid {{clickTarget=='password'?'black':'gainsboro'}};width:100%">
+                            <input placeholder="长度为6-18位字符" password="{{!isShowPassword}}" class="fl" style="width:90%" catch:input="getPassword" catch:tap="clickPasswordInput" catch:blur="inputBlurEvent" value="{{signPassword}}" />
+                            <text class="cuIcon-{{isShowPassword?'attentionfill':'attention'}} fr" style="width:10%;padding-bottom:5px" catch:tap="convertPassword"></text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+             <view class="flex justify-center padding-tb padding-lr-xl">
+                <button class="cu-btn bg-blue round padding" style="width:50%" bind:tap="clickEmailSignUp">
+                    <text class="text-sm">注册</text>
+                </button>
+            </view>
+        </view>
+    </view>
+    <block wx:if="{{getUserInfoDialog}}">
+                <view class="weui-animate-fade-in">
+                    <view class="weui-mask" bindtap="closeDialog"></view>
+                    <view class="weui-half-screen-dialog">
+                        <view class="weui-half-screen-dialog__hd">
+                            <view class="weui-half-screen-dialog__hd__main">
+                                <strong class="weui-half-screen-dialog__title">请求获取用户资料</strong>
+                            </view>
+                        </view>
+                        <view class="weui-half-screen-dialog__bd">
+                            <view class="flex align-center bg-gray" style="padding:5px">
+                                <view style="width:45px;height:45px">
+                                        <open-data type="userAvatarUrl" lang="en" />
+                                </view>
+                                <view class="padding text-lg">
+                                    <open-data type="userNickName" lang="en" />
+                                </view>
+                            </view>
+                            <view class="weui-half-screen-dialog__tips">
+                                将获取您的微信昵称、性别等非敏感资料用于注册用途
+                            </view>
+                        </view>
+                        <view class="weui-half-screen-dialog__ft">
+                            <a class="weui-btn weui-btn_default" bindtap="closeDialog">拒绝</a>
+                            <button class="weui-btn weui-btn_primary" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+                                授权
+                            </button>
+                        </view>
+                    </view>
+                </view>
+            </block>
+</view>

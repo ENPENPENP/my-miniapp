@@ -1,30 +1,87 @@
-<!--pages/home/home.wxml-->
-<cu-custom bgColor="bg-gradual-blue">
-    <view slot="content">易表</view>
-</cu-custom>
-<view class="bg-white" style="height:{{bgHeight * 2}}rpx">
-    <view class="grid col-1 text-center padding">
-        <view class="flex align-center margin-xl padding-lg ">
+<!-- pages/home/home.wxml -->
+<view class="bg-white DrawerPage {{modalName=='groupModal'?'show':''}}">
+    <cu-custom bgColor="bg-gradual-blue">
+        <view slot="content">
+            <text style="font-size:{{navigateBarTitleFontSize}}px">易表</text>
+        </view>
+    </cu-custom>
+    <view class="grid col-1 text-center padding" style="height:80vh">
+        <view class="flex align-center margin-xl ">
             <view class="flex-sub text-xsl">
                 <text class="cuIcon-light text-yellow"></text>
             </view>
             <view class="flex-sub align-center">
-				<view class="grid col-1"></view>
-			   	<view class="flex align-end text-black text-lg">填表格</view>
-				<view class="flex align-end text-black text-lg">不再麻烦！</view>
+                <view class="grid col-1"></view>
+                <view class="flex align-end text-black text-lg">填表格</view>
+                <view class="flex align-end text-black text-lg">不再麻烦！</view>
             </view>
         </view>
-        <view class="block margin-xl padding-lg">
-            <button class="cu-btn bg-green round lg shadow block">
+       <view class="align-center margin-top-lg" style="height:50vh">
+            <view class=" padding">
+            <button class="cu-btn bg-green round lg shadow block" bindtap="toNewTable">
                 <text>创建表格</text>
-                <text class="cuIcon-right lg text-white margin-xs"></text>
             </button>
         </view>
-        <view class="block margin-xl padding-lg">
-            <button class="cu-btn bg-blue round lg shadow block">
-                <text>我的表格</text>
-                <text class="cuIcon-list lg text-white margin-xs"></text>
+        <view class=" padding">
+            <button class="cu-btn bg-blue round lg shadow block" bind:tap="toMyTable">
+                <text>我参与的</text>
             </button>
         </view>
+        <!-- <view class="  padding">
+            <button class="cu-btn bg-blue round lg shadow block " bind:tap="showGroupModal">
+                <text>群组</text>
+                <text class="cuIcon-friend lg text-white margin-xs"></text>
+            </button>
+        </view> -->
+         <!-- <view class="  padding">
+            <button class="cu-btn bg-blue round lg shadow block " bind:tap="">
+                <text>我参与的</text>
+                <text class="cuIcon-friend lg text-white margin-xs"></text>
+            </button>
+        </view>
+        <view class="  padding">
+             <button open-type="share">分享好友</button>
+        </view> -->
+       </view>
+    </view>
+    <!-- 左侧边模态框 -->
+    <!-- <view class="cu-modal drawer-modal justify-start {{modalName=='groupModal'?'show':''}}" bindtap="hideModal">
+        <view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;bottom:60px;height:calc(100vh - {{CustomBar}}px)">
+            <scroll-view scroll-y="{{true}}" style="height:100%" refresher-enabled="{{true}}" refresher-threshold="{{30}}" refresher-default-style="black" refresher-background="white" refresher-triggered="{{triggered}}" bindrefresherpulling="onPulling" bindrefresherrefresh="onRefresh" bindrefresherrestore="onRestore" bindrefresherabort="onAbort">
+                <view class="cu-list menu text-left">
+                    <view class="cu-item arrow" wx:for="{{15}}">
+                        <view class="content" bind:catch:="click">
+                            <view>群组 {{index +1}}</view>
+                        </view>
+                    </view>
+                </view>
+                <view class="padding-tb-sm padding-lr" style="height:60px;width:100%">
+                    <button class="cu-btn bg-green block" catch:tap="">创建</button>
+                </view>
+            </scroll-view>
+        </view>
+    </view> -->
+</view>
+<view class="DrawerClose {{modalName=='groupModal'?'show':''}}" bindtap="hideModal">
+    <text class="cuIcon-pullright"></text>
+</view>
+<view class="DrawerWindow {{modalName=='groupModal'?'show':''}}">
+    <scroll-view scroll-y style="height:90vh" refresher-enabled="{{true}}" refresher-threshold="{{25}}" refresher-default-style="black" refresher-background="#0000" refresher-triggered="{{triggered}}" bindrefresherpulling="onPulling" bindrefresherrefresh="onRefresh" bindrefresherrestore="onRestore" bindrefresherabort="onAbort">
+        <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
+            <view class="cu-item arrow" wx:for="{{20}}" wx:key="index">
+                <view class="content">
+                    <text class="cuIcon-github text-grey"></text>
+                    <text class="text-grey">{{index +1}}</text>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+    <view class='flex justify-center padding-sm' style="height:10vh">
+        <button class='cu-btn bg-red shadow radius margin-right' style="width:30vw">
+            <text class="cuIcon-add"></text>创建
+        </button>
+        <button class='cu-btn bg-green shadow radius' style="width:30vw">
+            <text class="cuIcon-friendadd"></text>加入
+        </button>
     </view>
 </view>
