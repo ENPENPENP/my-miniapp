@@ -13,9 +13,16 @@ var tableUtils = {
         if (selectColIndex <= -1 && selectRowIndex <= -1) {
             return false;
         }
-            return false;
+        return false;
+    },
+
+    getColumnLength: function (colName) {
+        if (typeof colName == 'string' && colName.length != 0) {
+            return colName.length;
+        }
     }
 }
 module.exports = {
-    isSelect: tableUtils.isSelect
+    isSelect: tableUtils.isSelect,
+    getColumnLength: tableUtils.getColumnLength
 }

@@ -1,7 +1,7 @@
 <!-- pages/check_table/check_table.wxml -->
 <wxs module="stringFormat" src="../../utils/stringFormat.wxs"></wxs>
 <wxs module="timeTranslate" src="../../utils/timeTranslate.wxs"></wxs>
-<view style="height:100vh;margin:0;padding:0;" class="bg-gray">
+<view style="min-height:100vh;margin:0;padding:0;" class="bg-gray">
     <cu-custom bgColor="bg-gradual-blue" isCustom="{{true}}">
         <view slot="content">
             <text style="font-size:{{navigateBarTitleFontSize}}px">查看表格</text>
@@ -9,12 +9,6 @@
     </cu-custom>
     <view style="height:calc(100vh - {{navigateBarTitleFontSize}}px)">
         <view class="bg-white flex justify-center padding-tb-sm solid-top">
-            <!-- <view class="flex-sub flex justify-center padding-left-sm">
-                <button class="cu-btn bg-green" style="width:100%">
-                    <text class="cuIcon-upload"></text>
-                    发布
-                </button>
-            </view> -->
             <view class="flex-sub flex justify-center  padding-left-sm">
                 <button class="cu-btn bg-green" style="width:100%" open-type="share">
                     <text class="cuIcon-share"></text>
@@ -22,7 +16,7 @@
                 </button>
             </view>
             <view class="flex-sub flex justify-center padding-left-sm">
-                <button class="cu-btn bg-blue" style="width:100%" bind:tap="toFillTable">
+                <button class="cu-btn bg-blue" style="width:100%" bind:tap="toFillTable" disabled="{{event.isStoped}}">
                     <text class="cuIcon-edit"></text>
                     填写
                 </button>
@@ -57,7 +51,7 @@
             </view>
             <view class="flex-sub flex justify-start padding align-end">
                 <text class="text-black text-sm">是否截止：</text>
-                <text class="text-black">{{event.fileInfo.isStoped?'是':'否'}}</text>
+                <text class="text-black">{{event.isStoped?'是':'否'}}</text>
             </view>
         </view>
         <view class="bg-white flex solid-top">
@@ -71,23 +65,36 @@
             </view>
         </view>
         <view class="bg-white flex solid-top">
+            <view class="flex-sub flex justify-start padding align-end">
+                <text class="text-black text-sm">截止时间：</text>
+                <text class="text-black text-sm">{{event.stopTime?timeTranslate.timestampToDateTime(event.stopTime):"没有设置"}}</text>
+            </view>
             <view class="flex-sub flex justify-start padding align-end solid-right">
                 <text class="text-black text-sm">是否已经生成文件：</text>
                 <text class="text-black text-sm">{{event.fileInfo.isGenerated?"是":"否"}}</text>
+            </view> 
+        </view>
+        <view class="bg-white flex solid-top padding">
+            <view class="flex-sub flex justify-center  align-end">
+                <button class="cu-btn bg-blue" disabled="{{event.isStoped?true:false}}" bind:tap="setEventStop">
+                    <text class="cuIcon-download">{{event.isStoped?"已截止":"提前截止"}}</text>
+                </button>
             </view>
-            <view class="flex-sub flex justify-start padding align-end">
-                <button class="cu-btn bg-blue" disabled="{{!event.fileInfo.isGenerated}}" bind:tap="downloadFile" disabled="{{btnDisabled}}">
+            <view class="flex-sub flex justify-center  align-end">
+                <button class="cu-btn bg-blue" disabled="{{!event.fileInfo.isGenerated&&btnDisabled}}" bind:tap="downloadFile">
                     <text class="cuIcon-download">复制下载链接</text>
                 </button>
-                 <!-- <button class="cu-btn bg-blue margin-left-sm" disabled="{{!downloaded}}" bind:tap="openFile">
-                    <text class="cuIcon-download">打开</text>
-                </button> -->
+            </view>
+            <view class="flex-sub flex justify-center  align-end">
+                <button class="cu-btn bg-blue" disabled="{{btnDisabled}}" bind:tap="switchPrivate">
+                    <text class="cuIcon-download">{{event.isPrivate?"设为公开":"设为私密"}}</text>
+                </button>
             </view>
         </view>
         <view class="flex justify-center">
             <view class=" flex justify-center padding-sm">
                 <button class="cu-btn bg-green block" style="width:40vw" bind:tap="generateFile" disabled="{{btnDisabled}}">
-                    <text class="text text-white text-lg">生成文件</text>
+                    <text class="text text-white text-lg">{{event.fileInfo.isGenerated?"重新生成":"生成文件"}}</text>
                 </button>
             </view>
             <view class=" flex justify-center padding-sm">

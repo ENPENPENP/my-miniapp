@@ -18,7 +18,9 @@ Page({
 		//* 数据滚动条距离顶部的位置
 		dataScroll_top: 0,
 		//* 单元格宽度
-		cellWidth: 100,
+		// cellWidth: 100,
+		//* 单元格最大宽度
+		cellWidths: null,
 		//* 单元格高度
 		cellHeight: 35,
 		//* 标志当前点击的scroll-view
@@ -26,13 +28,13 @@ Page({
 		//* 表格的高度占比
 		tableHeightPercent: 100,
 		//* 列数
-		colCount: 20,
+		colCount: null,
 		//* 行数
-		rowCount: 10,
-		//* 列的最打宽度
-		colMaxWidth: null,
+		rowCount: null,
+		//* 列的最大宽度
+		// colMaxWidth: null,
 		//* 行的最大宽度
-		rowMaxWidth: null,
+		// rowMaxWidth: null,
 		//* 事件
 		event: null,
 		//! 当前登录用户的id
@@ -67,6 +69,7 @@ Page({
 					rowCount: _fileDataList.length,
 					colCount: _fileDataList[0].rowData.length
 				})
+				this.getMaxCellWidth();
 			}
 		}).catch(err => {
 			console.log(err);
@@ -76,6 +79,24 @@ Page({
 	onShow: function () {},
 	onHide: function () {},
 	onUnload: function () {},
+	/**
+	 * *获取单元格的最大宽度
+	 */
+	getMaxCellWidth: function () {
+		var _cellWidths = new Array(this.data.colCount);
+		for (var row = 0; row < this.data.rowCount; row++) {
+			var rowObj = this.data.fileDataList[row];
+			for (var col = 0; col < this.data.colCount; col++) {
+				var cellData = rowObj.rowData[col].data;
+				if (_cellWidths[col] == null || cellData.length > _cellWidths[col]) {
+					_cellWidths[col] = cellData.length;
+				}
+			}
+		}
+		this.setData({
+			cellWidths: _cellWidths
+		})
+	},
 	/**
 	 * *获取列名scroll-view的滚动值，同步设置数据scroll-view的滚动值
 	 * @param {事件参数} e 
@@ -111,7 +132,7 @@ Page({
 		}
 	},
 	/**
-	 * 获取数据scroll-view的滚动值，并设置行号和列名的滚动值
+	 * *获取数据scroll-view的滚动值，并设置行号和列名的滚动值
 	 * @param {事件参数} e 
 	 */
 	scroll: function (e) {
@@ -147,7 +168,7 @@ Page({
 		})
 	},
 	/**
-	 * 获取修改的单元格的值
+	 * *获取修改的单元格的值
 	 * @param {事件参数} e 
 	 */
 	modifyValue: function (e) {
@@ -170,5 +191,44 @@ Page({
 		this.setData({
 			cellContent: ""
 		})
+	},
+	/**
+	 * 清除单元格的值
+	 * @param {事件参数} e 
+	 */
+	clearValue:function(e){
+		if (this.data.selectRowIndex > 0 && this.data.selectColIndex >= 0) {
+			var _row = this.data.selectRowIndex;
+			var _col = this.data.selectColIndex;
+			var _data = 'fileDataList[' + _row + '].rowData[' + _col + '].data';
+			this.setData({
+				[_data]: "",
+				isEdited: true,
+				cellContent:""
+			})
+		}
+	},
+	/**
+	 * *提交修改
+	 * @param {事件参数} e 
+	 */
+	submitChange: function (e) {
+		var _url = networkUtils.api_path + '/file/updateData';
+		var _fileDataList = new Array();
+		for (var index = 0; index < this.data.fileDataList.length; index++) {
+			var element = JSON.parse(JSON.stringify(this.data.fileDataList[index]));
+			element.rowData = JSON.stringify(element.rowData);
+			_fileDataList.push(element);
+		}
+		networkUtils.post(_url, {
+			'fileId': this.data.event.fileId,
+			'fileDataList': JSON.stringify(_fileDataList)
+		}).then(res => {
+			if (res.data.status == 1) {
+				console.log(res);
+			}
+		}).catch(err => {
+			console.log(err);
+		});
 	}
 })

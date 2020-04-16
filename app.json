@@ -10,7 +10,6 @@
 		"pages/check_table/check_table",
 		"pages/check_table_data/check_table_data",
 		"pages/about/about",
-		"pages/edit_profile/edit_profile",
 		"pages/usage/usage"
 	],
 	"window": {

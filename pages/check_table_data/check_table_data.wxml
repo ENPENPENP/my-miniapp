@@ -13,28 +13,33 @@
                 <input class="" disabled="{{!editAble}}" style="font-size:18px;" value="{{cellContent}}" bindinput="modifyValue" />
             </view>
             <view class="padding-tb-sm" style="width:30vw;height:100%">
-                <button class="cu-btn line-red margin-right-sm" style="height:100%">
+                <button class="cu-btn line-red margin-right-sm" style="height:100%" bind:tap="clearValue">
                     <text class="cuIcon-delete"></text>
                 </button>
-                <button class="cu-btn bg-green" style="height:100%">
+                <button class="cu-btn bg-green" style="height:100%" bind:tap="submitChange" disabled="{{!isEdited}}">
                     <text class="cuIcon-check"></text>
                 </button>
             </view>
         </view>
         <view style="width:100%;height:calc({{tableHeightPercent - 7}}vh - {{CustomBar}}px);">
             <view class="flex">
+                <!-- 行列交接开始 -->
                 <view style="width:10vw;height:{{cellHeight}}px;margin:0;padding:0;" class="noSelected cell solid" data-row-num="{{-2}}" data-col-num="{{-2}}" bind:tap="cellTap"></view>
+                <!-- 行列交接结束 -->
+                <!-- 列名开始 -->
                 <scroll-view scroll-x class="solid" style="width:90vw;height:{{cellHeight}}px" scroll-left="{{colScroll_left}}" scroll-with-animation="{{true}}" bindscroll="colScroll">
                     <view class="flex " style="height:100%;">
                         <view wx:for="{{fileDataList[0].rowData}}">
-                            <view class="flex justify-center align-center {{tableUtils.isSelect(selectColIndex,selectRowIndex,index,-1)?'selected':'noSelected'}} solid cell" style="height:100%;width:{{cellWidth}}px;" data-col-num="{{index}}" data-row-num="{{-1}}" bind:tap="cellTap">
+                            <view class="flex justify-center align-center {{tableUtils.isSelect(selectColIndex,selectRowIndex,index,-1)?'selected':'noSelected'}} solid cell" style="height:100%;width:{{(cellWidths[index] + 2 )*20}}px;" data-col-num="{{index}}" data-row-num="{{-1}}" bind:tap="cellTap">
                                 <text class="text-black text-lg cell-text">{{fileDataList[0].rowData[index].data}}</text>
                             </view>
                         </view>
                     </view>
                 </scroll-view>
+                <!-- 列名结束 -->
             </view>
             <view class="flex">
+                <!-- 行号开始 -->
                 <scroll-view scroll-y class="solid" style="width:10vw;height:calc({{tableHeightPercent - 7}}vh - {{CustomBar + cellHeight}}px)" scroll-top="{{rowScroll_top}}" scroll-with-animation="{{true}}" bindscroll="rowScroll">
                     <view class="grid col-1 " style="width:100%;">
                         <view wx:for="{{fileDataList}}">
@@ -46,12 +51,14 @@
                         </view>
                     </view>
                 </scroll-view>
+                <!-- 行号结束 -->
+                <!-- 行数据开始 -->
                 <scroll-view scroll-x scroll-y class="solid" style="width:90vw;height:calc({{tableHeightPercent - 7}}vh - {{CustomBar + cellHeight}}px)" scroll-with-animation="{{true}}" bindscroll="scroll" scroll-left="{{dataScroll_left}}" scroll-top="{{dataScroll_top}}">
                     <view class="flex ">
                         <view wx:for="{{event.fileInfo.colCount}}" wx:for-index="col_idx">
                             <view wx:for="{{event.fileInfo.rowCount}}" wx:for-index="row_idx">
                                 <block wx:if="{{row_idx != 0}}">
-                                    <view class="flex justify-center block align-center {{tableUtils.isSelect(selectColIndex,selectRowIndex,col_idx,row_idx)?'selected':'noSelected'}} solid cell" style="height:{{cellHeight}}px;width:{{cellWidth}}px;position:relative;" data-col-num="{{col_idx}}" data-row-num="{{row_idx}}" catch:tap="cellTap">
+                                    <view class="flex justify-center block align-center {{tableUtils.isSelect(selectColIndex,selectRowIndex,col_idx,row_idx)?'selected':'noSelected'}} solid cell" style="height:{{cellHeight}}px;width:{{(cellWidths[col_idx] + 2 )*20}}px;;position:relative;" data-col-num="{{col_idx}}" data-row-num="{{row_idx}}" catch:tap="cellTap">
                                         <text class="text-black cell-text">{{fileDataList[row_idx].rowData[col_idx].data}}</text>
                                     </view>
                                 </block>
@@ -59,6 +66,7 @@
                         </view>
                     </view>
                 </scroll-view>
+                <!-- 行数据结束 -->
             </view>
         </view>
     </view>

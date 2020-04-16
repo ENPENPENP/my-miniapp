@@ -275,17 +275,9 @@ Page({
 		});
 	},
 	/**
-	 * 点击打开文件
-	 * @param {事件参数} e 
+	 * 
+	 * @param {*} e 
 	 */
-	openFile: function (e) {
-		wxApi.wxOpenDocumentApi(this.data.filePath, 'xlsx').then(res => {
-			console.log('open file success');
-		}).catch(err => {
-			console.log('openDocument file');
-			console.log(err);
-		})
-	},
 	closePage: function (e) {
 		this.hideModal();
 		setTimeout(() => {
@@ -293,5 +285,45 @@ Page({
 				delta: 1
 			})
 		}, 500);
+	},
+	/**
+	 * 设置事件的截止状态
+	 * @param {点击事件参数} e 
+	 */
+	setEventStop: function (e) {
+		var _url = networkUtils.api_path + '/event/stop';
+		var _data = {
+			"eventId": this.data.event.eventId
+		};
+		networkUtils.post(_url, _data).then(res => {
+			if (res.data.status == 1) {
+				console.log(res.data);
+				this.setData({
+					event: res.data.eventList[0]
+				})
+			}
+		}).catch(err => {
+			console.log(err);
+		});
+	},
+	/**
+	 * 切换事件的私密状态
+	 * @param {点击事件参数} e 
+	 */
+	switchPrivate:function(e){
+		var _url = networkUtils.api_path + '/event/switchPrivate';
+		var _data = {
+			"eventId": this.data.event.eventId
+		};
+		networkUtils.post(_url, _data).then(res => {
+			if (res.data.status == 1) {
+				console.log(res.data);
+				this.setData({
+					event: res.data.eventList[0]
+				})
+			}
+		}).catch(err => {
+			console.log(err);
+		});
 	}
 })
